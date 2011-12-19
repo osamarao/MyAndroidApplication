@@ -7,125 +7,127 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class AddTaskActivity extends TaskManagerActivity {
-	Button addButton, cancelButton;
-	EditText taskNameTextField;
-	private boolean changesPending;
-	protected AlertDialog unsavedChangesDialog;
-	EditText taskDescription;
+
+	private EditText taskNameEditText;
+	private Button addButton;
+	private Button cancelButton;
+	protected boolean changesPending; // initially initialized to false
+	private AlertDialog unsavedChangesDialog;
+	private EditText taskDescriptionEditText;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_tasks_activity);
-		setupViews();
+		
+		setUpViews();
+	}
+	
+	
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		// write code that uses the back button
 	}
 
-	private void setupViews() {
-		addButton = (Button) findViewById(R.id.add_button);
+
+
+	private void setUpViews() {
+	
+		taskNameEditText = (EditText)findViewById(R.id.task_name);
+		taskDescriptionEditText = (EditText)findViewById(R.id.task_desc);
+		addButton = (Button)findViewById(R.id.add_button);
 		cancelButton = (Button) findViewById(R.id.cancel_button);
-		taskNameTextField = (EditText) findViewById(R.id.task_name);
-		taskDescription = (EditText) findViewById(R.id.task_description);
-		taskNameTextField.addTextChangedListener(new TextWatcher() {
-
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				changesPending = true;
-
-			}
-
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,	int after) {
-			}
-
-			@Override
-			public void afterTextChanged(Editable s) {
+		
+		addButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				addTask();
 			}
 		});
 		
-		taskDescription.addTextChangedListener(new TextWatcher() {
+		cancelButton.setOnClickListener(new View.OnClickListener() {
 
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				changesPending = true;
-
-			}
-
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,	int after) {
-			}
-
-			@Override
-			public void afterTextChanged(Editable s) {
-			}
-		});
-
-		addButton.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				if (taskNameTextField.getText().toString().equals("")){
-					Toast.makeText(getApplicationContext(), "Please Enter Task Name", Toast.LENGTH_SHORT).show();
-				}
-				else{
-					addTask();
-				}
-			}
-		});
-
-		cancelButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				cancel();
-
+				
 			}
-		});
+			
 
+		});
+		
+		taskNameEditText.addTextChangedListener(new TextWatcher() {
+			
+			public void onTextChanged(CharSequence s, int start, int before, int count ) {
+				changesPending = true;
+					
+			}
+			
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+			public void afterTextChanged(Editable s) {} // check allowable chars, spell checker
+			
+		});
+		
+		taskDescriptionEditText.addTextChangedListener(new TextWatcher() {
+			
+			public void onTextChanged(CharSequence s, int start, int before, int count ) {
+				changesPending = true;
+					
+			}
+			
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+			public void afterTextChanged(Editable s) {} // check allowable chars, spell checker
+			
+		});
 	}
 
 	protected void cancel() {
-		if (changesPending) {
+		// TODO Auto-generated method stub
+		if(changesPending && !taskNameEditText.getText().toString().equals("")) { // and empty string
 			unsavedChangesDialog = new AlertDialog.Builder(this)
-					.setTitle(R.string.unsaved_changes_title)
-					.setMessage(R.string.unsaved_changes_message)
-					.setPositiveButton(R.string.add_task, new AlertDialog.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int which) {
-									addTask();
-								}
-							})
-					.setNeutralButton(R.string.discard,	new AlertDialog.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int which) {
-									finish();
-								}
-							})
-					.setNegativeButton(android.R.string.cancel,	new AlertDialog.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int which) {
-									unsavedChangesDialog.cancel();
-								}
-							})
-					.create();
+			.setTitle(R.string.unsaved_changes_title)
+			.setMessage(R.string.unsaved_changes_message)
+			.setPositiveButton(R.string.add_task, new AlertDialog.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					addTask();
+				}
+
+			})
+			.setNeutralButton(R.string.discard, new AlertDialog.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					finish();
+				}
+			})
+			.setNegativeButton(android.R.string.cancel, new AlertDialog.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					unsavedChangesDialog.cancel();
+					// cancels dialog
+				}
+
+			})
+		
+			.create();
 			unsavedChangesDialog.show();
-		} else {
+		}else {
 			finish();
 		}
+		
 	}
 
 	protected void addTask() {
-		String taskName = taskNameTextField.getText().toString();
-		String description = taskDescription.getText().toString();
+		// TODO Auto-generated method stub
+		String taskName = taskNameEditText.getText().toString();
 		Task t = new Task(taskName);
-		t.setDescription(description);
-		getTaskManagerApplication().addTask(t);
+		t.setDescription(taskDescriptionEditText.getText().toString());
+		getTaskManagerApplication().add(t);
 		finish();
-
 	}
-
 }

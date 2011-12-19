@@ -4,12 +4,9 @@ import android.app.Activity;
 
 public class TaskManagerActivity extends Activity {
 
-	public TaskManagerActivity() {
-		super();
-	}
-
 	protected TaskManagerApplication getTaskManagerApplication() {
-		return (TaskManagerApplication)getApplication();
+		TaskManagerApplication tma = (TaskManagerApplication)getApplication();
+		return tma;
 	}
 
 }

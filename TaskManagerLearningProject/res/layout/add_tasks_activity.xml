@@ -2,37 +2,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-	<TextView 
-		android:id="@+id/tasks_title"
-	    android:layout_width="fill_parent" 
-	    android:layout_height="wrap_content" 
- 		android:text="@string/add_task"
-	    />
-	
+    android:layout_height="fill_parent"
+    >
+    <TextView
+    	android:id="@+id/task_title"
+    	android:text="@string/app_name"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	/>
+    
 	<EditText
+		android:id="@+id/task_name"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:id="@+id/task_name">
-		<requestFocus />
-	</EditText>
-
+		android:hint="task"
+		/>
+		
 	<EditText
-	    android:id="@+id/task_description"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:inputType="textMultiLine" 
-	    />
-
+		android:id="@+id/task_desc"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:lines="5"
+		android:hint="description"
+		/>
 	<Button
+		android:text="@string/add_task"
 		android:id="@+id/add_button"
- 		android:layout_width="fill_parent"
- 		android:layout_height="wrap_content"
- 		android:text="@string/add_task"/>
-	
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		/>
 	<Button
+		android:text="@string/cancel"
 		android:id="@+id/cancel_button"
- 		android:layout_width="fill_parent"
- 		android:layout_height="wrap_content"
- 		android:text="@string/cancel"/>
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		/>
+
 </LinearLayout>

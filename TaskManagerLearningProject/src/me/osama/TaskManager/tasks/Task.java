@@ -8,56 +8,60 @@ public class Task implements Serializable{
 	 */
 	private static final long serialVersionUID = 5527258407135652423L;
 	
-	private long id;
 	private String name;
 	private boolean complete;
+	private long id;
 	private String description;
-
-	public Task(String taskName) {
-		name = taskName;
+	
+	public String getDescription() {
+		return description;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
+	public void setName(String n) {
+		name = n;
+		
+	}
+	
 	public String getName() {
 		return name;
+	}
+	
+	public Task(String n){
+		name = n;
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return name;
+	}
+
+	public boolean isComplete() {
+		
+		return complete;
 	}
 
 	public void setComplete(boolean complete) {
 		this.complete = complete;
 	}
 
-	public boolean isComplete() {
-		return complete;
-	}
-	
 	public void toggleComplete() {
 		complete = !complete;
-	}
-
-	public String toString() {
-		return name + "'s task Des= " +description;
-	}
-	
-	public long getId (){
-		return id;
+		
 	}
 
 	public void setId(long id) {
 		this.id = id;
+		
 	}
 
-	
-	public String getDescription() {
-		return description;
+	public long getId() {
+		return id;
 	}
 
-	
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
 	
 }
