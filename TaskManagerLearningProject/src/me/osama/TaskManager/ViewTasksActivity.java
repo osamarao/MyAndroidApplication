@@ -5,10 +5,12 @@ import me.osama.TaskManager.tasks.Task;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class ViewTasksActivity extends ListActivity {
 
@@ -28,6 +30,11 @@ public class ViewTasksActivity extends ListActivity {
         app = (TaskManagerApplication)getApplication();
         adapter = new TasksListsAdapter(this, app.getCurrentTasks());
         //adapter2 = new ArrayAdapter<Task>(this, android.R.layout.two_line_list_item, app.getCurrentTasks());
+        for (Task task: app.getCurrentTasks()){
+        	//i++;
+        	Log.i("tasks", task.toString());
+        }
+        
         setListAdapter(adapter);
     }
 	
@@ -39,8 +46,15 @@ public class ViewTasksActivity extends ListActivity {
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
+		try{
 		super.onListItemClick(l, v, position, id);
 		adapter.toggleTaskCompleteAtPosition(position);
+		app.getCurrentTasks().get(position).getDescription().toString();
+		Toast.makeText(this, app.getCurrentTasks().get(position).getDescription().toString(), Toast.LENGTH_SHORT).show();
+		}
+		catch(NullPointerException npe){
+			Toast.makeText(this, "NPE Occured", Toast.LENGTH_SHORT);
+		}
 	}
 	
 	protected void removeCompletedTasks() {

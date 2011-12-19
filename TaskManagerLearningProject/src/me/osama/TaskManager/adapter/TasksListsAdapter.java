@@ -40,6 +40,7 @@ public class TasksListsAdapter extends BaseAdapter {
 			tli = (TaskListItem)convertView;
 		}
 		tli.setTask(tasks.get(position));
+		//Log.i("tasksListsAdapter", tasks.get(position).toString());
 		return tli;
 	}
 

@@ -38,7 +38,7 @@ public class Task implements Serializable{
 	}
 
 	public String toString() {
-		return name;
+		return name + "'s task Des= " +description;
 	}
 	
 	public long getId (){
@@ -58,5 +58,6 @@ public class Task implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 	
 }

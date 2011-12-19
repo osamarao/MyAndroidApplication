@@ -8,7 +8,7 @@ public class TaskManagerActivity extends Activity {
 		super();
 	}
 
-	protected TaskManagerApplication getStuffApplication() {
+	protected TaskManagerApplication getTaskManagerApplication() {
 		return (TaskManagerApplication)getApplication();
 	}
 

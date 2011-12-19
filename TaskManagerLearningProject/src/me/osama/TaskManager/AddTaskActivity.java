@@ -123,7 +123,7 @@ public class AddTaskActivity extends TaskManagerActivity {
 		String description = taskDescription.getText().toString();
 		Task t = new Task(taskName);
 		t.setDescription(description);
-		getStuffApplication().addTask(t);
+		getTaskManagerApplication().addTask(t);
 		finish();
 
 	}
